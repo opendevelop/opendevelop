@@ -1,1 +1,2 @@
+django==1.5.
 pyyaml==3.10
