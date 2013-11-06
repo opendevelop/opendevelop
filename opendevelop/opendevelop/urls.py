@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, include, url
-
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+
+from images.views import ImagesView
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -14,4 +15,5 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^api/images/', ImagesView.as_view()),
 )
