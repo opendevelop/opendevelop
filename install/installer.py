@@ -6,6 +6,8 @@ of OpenDevelop.
 
 from getpass import getuser
 from os import environ
+from os import mkdir
+from os.path import exists
 from subprocess import call
 from subprocess import PIPE
 from sys import exit
@@ -47,4 +49,21 @@ for od_user in OPENDEVELOP_USERS:
         die('  Cannot add user %s to opendevelop group. Exiting.' % od_user)
     print '  Okay.'
 
-# Create application directory and give proper rights
+# Create application directory
+APP_DIR = '/etc/%s' % USER_NAME
+print 'Creating application directory...'
+if (exists(APP_DIR)):
+    print '  Application directory already exists. Skipping...'
+else:
+    mkdir(APP_DIR)
+    print '  Okay.'
+
+# Set proper ownership and permissions for the directory
+APP_OWNER = '%s:%s' % (USER_NAME, USER_NAME)
+print 'Setting proper ownership and permissions for the directory...'
+call(['chown', APP_OWNER, APP_DIR], stdout=PIPE, stderr=PIPE)
+call(['chmod', '775', APP_DIR], stdout=PIPE, stderr=PIPE)
+print '  Okay.'
+
+# Exit
+print 'Ready to go.'
