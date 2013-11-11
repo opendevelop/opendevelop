@@ -7,4 +7,4 @@ class SandboxListView(View):
 
     @oauth
     def get(self, request, **kwargs):
-        pass
+        return JSONResponse([])
