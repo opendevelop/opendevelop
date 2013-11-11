@@ -1,7 +1,5 @@
-from django.views.generic import View
-
 from common.views import JSONResponse
-
+from django.views.generic import View
 from models import Image
 
 class ImagesView(View):
