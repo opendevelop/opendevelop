@@ -3,6 +3,6 @@ from images.views import ImagesView
 from sandboxes.views import SandboxListView
 
 urlpatterns = patterns('',
-    url(r'^images/$', ImagesView.as_view()),
-    url(r'^sandboxes/$', SandboxListView.as_view()),
+    url(r'^images/?$', ImagesView.as_view()),
+    url(r'^sandboxes/?$', SandboxListView.as_view()),
 )
