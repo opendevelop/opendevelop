@@ -1,5 +1,7 @@
+from api.models import App
 from common.views import HttpResponseUnauthorized
 from django.http import HttpResponseBadRequest
+from django.http import HttpResponseServerError
 from functools import wraps
 import base64
 
@@ -30,6 +32,17 @@ def oauth(view):
 
         if (len(client_secret) <> 40):
             return HttpResponseBadRequest('client_secret should be 40 chars long.')
+
+        try:
+            app = App.objects.get(client_id=client_id,
+                                  client_secret=client_secret)
+        except App.DoesNotExist:
+            msg = 'client_id and client_secret do not match any registered app'
+            return HttpResponseBadRequest(msg)
+        except Exception:
+            return HttpResponseServerError()
+
+        request.app = app
 
         return view(self, request, **kwargs)
     return wrapper
