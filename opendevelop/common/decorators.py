@@ -5,6 +5,7 @@ from django.http import HttpResponseServerError
 from functools import wraps
 import base64
 
+
 def oauth(view):
     @wraps(view)
     def wrapper(self, request, *args, **kwargs):
@@ -27,11 +28,12 @@ def oauth(view):
             raise
             return HttpResponseBadRequest('Invalid Authorization header data.')
 
-        if (len(client_id) <> 20):
+        if (len(client_id) != 20):
             return HttpResponseBadRequest('client_id should be 20 chars long.')
 
-        if (len(client_secret) <> 40):
-            return HttpResponseBadRequest('client_secret should be 40 chars long.')
+        if (len(client_secret) != 40):
+            return HttpResponseBadRequest('client_secret should be 40 '
+                                          'chars long.')
 
         try:
             app = App.objects.get(client_id=client_id,

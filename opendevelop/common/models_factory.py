@@ -1,8 +1,10 @@
 import factory
 import models
 
+
 def prefix_seq(x):
-    return lambda n : x + '-{0}'.format(n)
+    return lambda n: x + '-{0}'.format(n)
+
 
 class OpenDevelopUserFactory(factory.DjangoModelFactory):
     FACTORY_FOR = models.OpenDevelopUser

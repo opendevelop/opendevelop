@@ -5,6 +5,7 @@ from django.views.generic import View
 from models import Sandbox
 import logic
 
+
 class SandboxListView(View):
 
     @oauth
@@ -17,6 +18,7 @@ class SandboxListView(View):
     def post(self, request):
         sandbox_id = logic.create()
         return JSONResponse(content={'sandbox_id': sandbox_id})
+
 
 class SandboxSingleView(View):
 
@@ -33,11 +35,11 @@ class SandboxSingleView(View):
 def sandbox_to_dict(sandbox):
     d = {}
     d['image'] = sandbox.image.id
-    d['cmd'] =  sandbox.cmd
+    d['cmd'] = sandbox.cmd
     d['status'] = sandbox.status
     try:
         d['return_code'] = sandbox.log.return_code
-        d['logs'] =  sandbox.log.logs
+        d['logs'] = sandbox.log.logs
     except:
         d['return_code'] = None
         d['logs'] = None
