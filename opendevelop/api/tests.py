@@ -23,6 +23,23 @@ class SandBoxApiTest(TestCase):
         value = "Basic " + hashed
         self.headers = {"HTTP_AUTHORIZATION": value}
 
+    def test_unauthorized(self):
+        response = self.client.get("/api/sandbox")
+        self.assertEqual(response.status_code, 401)
+
+    def test_wrong_header(self):
+        response = self.client.get("/api/sandbox", HTTP_AUTHORIZATION="wrong")
+        self.assertEqual(response.status_code, 400)
+
+    def test_no_app_found(self):
+        C_ID = "                    "
+        C_SECRET = "                                        "
+        hashed = base64.standard_b64encode("%s:%s" % (C_ID, C_SECRET))
+        value = "Basic " + hashed
+        header = {"HTTP_AUTHORIZATION": value}
+        response = self.client.get("/api/sandbox/", **header)
+        self.assertEqual(response.status_code, 400)
+
     def test_get_sandboxes_empty(self):
         response = self.client.get("/api/sandbox/", **self.headers)
         self.assertEqual(response.content, "{\"sandboxes\": []}")

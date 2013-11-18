@@ -24,8 +24,7 @@ def oauth(view):
                 return HttpResponseBadRequest(msg)
             auth_data = base64.standard_b64decode(auth_data)
             (client_id, client_secret) = tuple(auth_data.split(':'))
-        except Exception:
-            raise
+        except Exception, Error:
             return HttpResponseBadRequest('Invalid Authorization header data.')
 
         if (len(client_id) != 20):
