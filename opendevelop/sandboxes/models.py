@@ -19,6 +19,6 @@ class Sandbox(models.Model):
 
 
 class SandboxLog(models.Model):
-    sandbox = models.ForeignKey('sandboxes.Sandbox')
+    sandbox = models.OneToOneField('sandboxes.Sandbox', related_name="log")
     return_code = models.IntegerField()
     logs = models.TextField()

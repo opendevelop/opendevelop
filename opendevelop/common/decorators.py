@@ -44,5 +44,5 @@ def oauth(view):
 
         request.app = app
 
-        return view(self, request, **kwargs)
+        return view(self, request, *args, **kwargs)
     return wrapper

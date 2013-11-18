@@ -11,4 +11,4 @@ class AppFactory(factory.DjangoModelFactory):
     FACTORY_FOR = App
     client_id = factory.Sequence(lambda self : random_string(20))
     client_secret = factory.Sequence(lambda self : random_string(40))
-    owner = cmf.OpenDevelopUserFactory()
+    owner = factory.SubFactory(cmf.OpenDevelopUserFactory)
