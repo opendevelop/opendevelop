@@ -9,8 +9,10 @@ from django.test import TestCase
 from django.utils import simplejson as json
 import models_factory as mf
 from sandboxes import models_factory as smf
+from images import models_factory as imf
 import base64
 import models
+from mock import patch
 
 
 class SandBoxApiTest(TestCase):
@@ -21,7 +23,8 @@ class SandBoxApiTest(TestCase):
         C_SECRET = self.app.client_secret
         hashed = base64.standard_b64encode("%s:%s" % (C_ID, C_SECRET))
         value = "Basic " + hashed
-        self.headers = {"HTTP_AUTHORIZATION": value}
+        self.headers = {"HTTP_AUTHORIZATION": value,
+                        "CONTENT_TYPE": "application/json"}
 
     def test_unauthorized(self):
         response = self.client.get("/api/sandbox")
@@ -53,9 +56,35 @@ class SandBoxApiTest(TestCase):
         response = self.client.get("/api/sandbox/"+str(sbx.id), **self.headers)
         self.assertEqual(response.status_code, 200)
 
-    '''
+    def test_create_sandbox_invalid_json(self):
+        response = self.client.post("/api/sandbox/", **self.headers)
+        self.assertEqual(response.status_code, 400)
+
+    def test_create_sandbox_image_missing(self):
+        req = {"cmd": "foo"}
+        a = json.dumps(req)
+        response = self.client.post("/api/sandbox/", json.dumps(req), "json",
+                                    **self.headers)
+        self.assertEqual(response.status_code, 400)
+
+    def test_create_sandbox_cmd_missing(self):
+        req = {"image_id": "foo"}
+        a = json.dumps(req)
+        response = self.client.post("/api/sandbox/", json.dumps(req), "json",
+                                    **self.headers)
+        self.assertEqual(response.status_code, 400)
+
+    def test_create_sandbox_wrong_image(self):
+        req = {"image_id": "foo", "cmd": "bar"}
+        response = self.client.post("/api/sandbox/", json.dumps(req), "json",
+                                    **self.headers)
+        self.assertEqual(response.status_code, 404)
+
     def test_create_sandbox(self):
-        response = self.client.post("/api/sandbox")
-        info = json.loads(response.content)
-        self.assertTrue(isinstance(info['sandbox_id'], int))
-    '''
+        with patch("sandboxes.logic.create") as f:
+            f.return_value = 100
+            image = imf.ImageFactory()
+            req = {"image_id": image.slug, "cmd": "bar"}
+            response = self.client.post("/api/sandbox/", json.dumps(req),
+                                        "json", **self.headers)
+            self.assertEqual(response.status_code, 200)

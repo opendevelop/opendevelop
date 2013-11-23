@@ -1,8 +1,10 @@
 from common.views import JSONResponse
-from django.http import HttpResponseNotFound
+from common import utils
+from django.http import HttpResponseNotFound, HttpResponseBadRequest
 from common.decorators import oauth
 from django.views.generic import View
 from models import Sandbox
+from images.models import Image
 import logic
 
 
@@ -16,7 +18,24 @@ class SandboxListView(View):
 
     @oauth
     def post(self, request):
-        sandbox_id = logic.create()
+        try:
+            data = utils.get_request_dict(request)
+        except Exception as e:
+            return HttpResponseBadRequest(e.args)
+        try:
+            cmd = data['cmd']
+            image_id = data['image_id']
+        except KeyError:
+            return HttpResponseBadRequest("Command or image_id missing")
+        try:
+            image = Image.objects.get(slug=image_id)
+        except Image.DoesNotExist:
+            return HttpResponseNotFound("No image found")
+        try:
+            f = request.FILES['file']
+        except:
+            f = None
+        sandbox_id = logic.create(request.app, cmd, image, f)
         return JSONResponse(content={'sandbox_id': sandbox_id})
 
 
