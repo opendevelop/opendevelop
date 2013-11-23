@@ -23,8 +23,7 @@ class SandBoxApiTest(TestCase):
         C_SECRET = self.app.client_secret
         hashed = base64.standard_b64encode("%s:%s" % (C_ID, C_SECRET))
         value = "Basic " + hashed
-        self.headers = {"HTTP_AUTHORIZATION": value,
-                        "CONTENT_TYPE": "application/json"}
+        self.headers = {"HTTP_AUTHORIZATION": value}
 
     def test_unauthorized(self):
         response = self.client.get("/api/sandbox")
@@ -63,28 +62,23 @@ class SandBoxApiTest(TestCase):
     def test_create_sandbox_image_missing(self):
         req = {"cmd": "foo"}
         a = json.dumps(req)
-        response = self.client.post("/api/sandbox/", json.dumps(req), "json",
-                                    **self.headers)
+        response = self.client.post("/api/sandbox/", req, **self.headers)
         self.assertEqual(response.status_code, 400)
 
     def test_create_sandbox_cmd_missing(self):
         req = {"image_id": "foo"}
-        a = json.dumps(req)
-        response = self.client.post("/api/sandbox/", json.dumps(req), "json",
-                                    **self.headers)
+        response = self.client.post("/api/sandbox/", req, **self.headers)
         self.assertEqual(response.status_code, 400)
 
     def test_create_sandbox_wrong_image(self):
         req = {"image_id": "foo", "cmd": "bar"}
-        response = self.client.post("/api/sandbox/", json.dumps(req), "json",
-                                    **self.headers)
+        response = self.client.post("/api/sandbox/", req, **self.headers)
         self.assertEqual(response.status_code, 404)
 
     def test_create_sandbox(self):
         with patch("sandboxes.logic.create") as f:
             f.return_value = 100
             image = imf.ImageFactory()
-            req = {"image_id": image.slug, "cmd": "bar"}
-            response = self.client.post("/api/sandbox/", json.dumps(req),
-                                        "json", **self.headers)
+            req = {"image_id": image.id, "cmd": "bar"}
+            response = self.client.post("/api/sandbox/", req,  **self.headers)
             self.assertEqual(response.status_code, 200)

@@ -18,24 +18,18 @@ class SandboxListView(View):
 
     @oauth
     def post(self, request):
-        try:
-            data = utils.get_request_dict(request)
-        except Exception as e:
-            return HttpResponseBadRequest(e.args)
+        data = request.POST
         try:
             cmd = data['cmd']
             image_id = data['image_id']
         except KeyError:
             return HttpResponseBadRequest("Command or image_id missing")
         try:
-            image = Image.objects.get(slug=image_id)
-        except Image.DoesNotExist:
-            return HttpResponseNotFound("No image found")
-        try:
-            f = request.FILES['file']
+            image = Image.objects.get(id=image_id)
         except:
-            f = None
-        sandbox_id = logic.create(request.app, cmd, image, f)
+            return HttpResponseNotFound("No image found")
+        files = request.FILES
+        sandbox_id = logic.create(request.app, cmd, image, files)
         return JSONResponse(content={'sandbox_id': sandbox_id})
 
 
