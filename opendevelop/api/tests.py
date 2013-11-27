@@ -73,7 +73,7 @@ class SandBoxApiTest(TestCase):
     def test_create_sandbox_wrong_image(self):
         req = {"image_id": "foo", "cmd": "bar"}
         response = self.client.post("/api/sandbox/", req, **self.headers)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 400)
 
     def test_create_sandbox(self):
         with patch("sandboxes.logic.create") as f:

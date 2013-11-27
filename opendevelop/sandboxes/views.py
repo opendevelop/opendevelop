@@ -16,40 +16,17 @@ import logic
 
 class SandboxListView(View):
     """
-    This class handles the views that have to do with
-    multiple sandboxes.
+    This class handles the listing and creation of sandboxes.
     """
 
     @oauth
     def get(self, request, **kwargs):
         """
-        Returns the list of sandboxes owned by the
-        currently authenticated app.
+        Returns the list of sandboxes owned by the currently authenticated app.
         """
         sandboxes = Sandbox.objects.filter(owner_app=request.app)
         sandboxes_dict = [s.to_dict() for s in sandboxes]
         return JSONResponse({'sandboxes': sandboxes_dict})
-
-
-class SandboxSingleView(View):
-    """
-    This view handles the inspection and creation of
-    a single sandbox.
-    """
-
-    @oauth
-    def get(self, request, sandbox_id):
-        """
-        Returns information about a specific sandbox
-        owned by the currently authenticated app and identified
-        by the given sandbox_id
-        """
-        try:
-            sandbox = Sandbox.objects.get(pk=sandbox_id)
-        except Sandbox.DoesNotExist:
-            return HttpResponseNotFound("SandBox not found")
-        sandbox_dict = sandbox.to_dict()
-        return JSONResponse(content=sandbox_dict)
 
     @oauth
     def post(self, request):
@@ -69,3 +46,23 @@ class SandboxSingleView(View):
         files = request.FILES
         sandbox_id = logic.create(request.app, cmd, image, files)
         return JSONResponse({'sandbox_id': sandbox_id})
+
+
+class SandboxSingleView(View):
+    """
+    This view handles the inspection of a single sandbox.
+    """
+
+    @oauth
+    def get(self, request, sandbox_id):
+        """
+        Returns information about a specific sandbox
+        owned by the currently authenticated app and identified
+        by the given sandbox_id
+        """
+        try:
+            sandbox = Sandbox.objects.get(pk=sandbox_id)
+        except Sandbox.DoesNotExist:
+            return HttpResponseNotFound("SandBox not found")
+        sandbox_dict = sandbox.to_dict()
+        return JSONResponse(content=sandbox_dict)
