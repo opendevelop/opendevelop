@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Image(models.Model):
     """
     This class defines the Image mode. Each sandbox should be created with an

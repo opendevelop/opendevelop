@@ -16,6 +16,19 @@ class Sandbox(models.Model):
     cmd = models.TextField()
     status = models.CharField(choices=STATUSES, max_length=16, default=CREATED)
 
+    def to_dict(self):
+        d = {}
+        d['image'] = self.image.slug
+        d['cmd'] = self.cmd
+        d['status'] = self.status
+        try:
+            d['return_code'] = self.log.return_code
+            d['logs'] = self.log.logs
+        except:
+            d['return_code'] = None
+            d['logs'] = None
+        return d
+
 
 class SandboxLog(models.Model):
     sandbox = models.OneToOneField('sandboxes.Sandbox', related_name="log")
