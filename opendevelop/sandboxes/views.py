@@ -15,35 +15,35 @@ import logic
 
 
 class SandboxListView(View):
-	"""
-	This class handles the views that have to do with
-	multiple sandboxes.
-	"""
+    """
+    This class handles the views that have to do with
+    multiple sandboxes.
+    """
 
     @oauth
     def get(self, request, **kwargs):
-		"""
-		Returns the list of sandboxes owned by the
-		currently authenticated app.
-		"""
+        """
+        Returns the list of sandboxes owned by the
+        currently authenticated app.
+        """
         sandboxes = Sandbox.objects.filter(owner_app=request.app)
         sandboxes_dict = [s.to_dict() for s in sandboxes]
         return JSONResponse({'sandboxes': sandboxes_dict})
 
 
 class SandboxSingleView(View):
-	"""
-	This view handles the inspection and creation of
-	a single sandbox.
-	"""
+    """
+    This view handles the inspection and creation of
+    a single sandbox.
+    """
 
     @oauth
     def get(self, request, sandbox_id):
-		"""
-		Returns information about a specific sandbox
-		owned by the currently authenticated app and identified
-		by the given sandbox_id
-		"""
+        """
+        Returns information about a specific sandbox
+        owned by the currently authenticated app and identified
+        by the given sandbox_id
+        """
         try:
             sandbox = Sandbox.objects.get(pk=sandbox_id)
         except Sandbox.DoesNotExist:
@@ -53,9 +53,9 @@ class SandboxSingleView(View):
 
     @oauth
     def post(self, request):
-		"""
-		Creates a new sandbox for the currently authenticated app.
-		"""
+        """
+        Creates a new sandbox for the currently authenticated app.
+        """
         data = request.POST
         try:
             cmd = data['cmd']
