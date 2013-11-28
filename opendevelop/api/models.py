@@ -12,3 +12,6 @@ class App(models.Model):
     homepage = models.URLField()
     description = models.TextField()
     is_active = models.BooleanField()
+
+    def __unicode__(self):
+        return self.name
