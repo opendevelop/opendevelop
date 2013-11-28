@@ -13,6 +13,7 @@ class Sandbox(models.Model):
     owner_app = models.ForeignKey('api.App')
     time = models.DateTimeField(auto_now=True)
     image = models.ForeignKey('images.Image')
+    docker_server = models.ForeignKey('common.DockerServer', null=True)
     cmd = models.TextField()
     status = models.CharField(choices=STATUSES, max_length=16, default=CREATED)
 
