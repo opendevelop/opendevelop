@@ -2,7 +2,7 @@ from django.db import models
 
 class Image(models.Model):
     """
-    This class defines the Image mode. Each sandbox should be created with an
+    This class defines the Image model. Each sandbox should be created with an
     Image as a base. Each Image should be have a valid counterpart to every
     Docker server connected to OpenDevelop
     """
