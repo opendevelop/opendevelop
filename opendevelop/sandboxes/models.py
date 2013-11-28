@@ -17,6 +17,9 @@ class Sandbox(models.Model):
     cmd = models.TextField()
     status = models.CharField(choices=STATUSES, max_length=16, default=CREATED)
 
+    def __unicode__(self):
+        return self.slug
+
     def to_dict(self):
         d = {}
         d['image'] = self.image.slug
