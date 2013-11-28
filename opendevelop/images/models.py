@@ -9,5 +9,5 @@ class Image(models.Model):
     name = models.CharField(max_length=32)
     slug = models.SlugField(max_length=32)
     description = models.TextField()
-    url = models.URLField(max_length=64)
+    url = models.URLField(max_length=64, default=None)
     docker_image_name = models.CharField(max_length=32)
