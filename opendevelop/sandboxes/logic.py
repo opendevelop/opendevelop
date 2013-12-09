@@ -9,5 +9,5 @@ def create(app, cmd, image_slug, files):
     docker_server = DockerServer.objects.order_by('?')[0]
     sandbox = Sandbox.objects.create(owner_app=app, cmd=cmd, image=image,
                                      docker_server=docker_server)
-    r = tasks.run_code.delay(sandbox.id, cmd, files)
-    return sandbox.id
+    r = tasks.run_code.delay(sandbox, cmd, files)
+    return sandbox

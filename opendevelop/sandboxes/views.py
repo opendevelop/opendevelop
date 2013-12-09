@@ -44,8 +44,8 @@ class SandboxListView(View):
         except:
             return HttpResponseBadRequest("No image found")
         files = request.FILES
-        sandbox_id = logic.create(request.app, cmd, image, files)
-        return JSONResponse({'sandbox_id': sandbox_id})
+        sandbox = logic.create(request.app, cmd, image, files)
+        return JSONResponse({'sandbox_id': sandbox.id})
 
 
 class SandboxSingleView(View):
