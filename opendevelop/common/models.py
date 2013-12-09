@@ -7,6 +7,8 @@ class DockerServer(models.Model):
     _api = None
 
     name = models.CharField(max_length=32)
+    bucket_list = models.CharField(max_length=128,
+                                   default='/etc/opendevelop/buckets')
     url = models.CharField(max_length=64)
 
     def __unicode__(self):
