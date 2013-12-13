@@ -1,4 +1,4 @@
-from models import Sandbox
+from .models import Sandbox
 from common.models import DockerServer
 from images.models import Image
 import tasks
