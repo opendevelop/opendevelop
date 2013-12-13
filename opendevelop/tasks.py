@@ -1,9 +1,13 @@
 from celery import Celery
+from django.conf import settings
 import os
 import time
 
-app = Celery('tasks', broker='amqp://guest@localhost', backend='amqp')
 
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'opendevelop.settings')
+
+app = Celery('opendevelop', broker='amqp://guest@localhost', backend='amqp')
+app.config_from_object('django.conf:settings')
 
 @app.task
 def run_code(sandbox, cmd, files):
