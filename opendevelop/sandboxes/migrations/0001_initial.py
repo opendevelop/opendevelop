@@ -15,6 +15,8 @@ class Migration(SchemaMigration):
             ('owner_app', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['api.App'])),
             ('time', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
             ('image', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['images.Image'])),
+            ('docker_server', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['common.DockerServer'], null=True)),
+            ('container_id', self.gf('django.db.models.fields.SlugField')(max_length=32, null=True)),
             ('cmd', self.gf('django.db.models.fields.TextField')()),
             ('status', self.gf('django.db.models.fields.CharField')(default='created', max_length=16)),
         ))
@@ -65,6 +67,13 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
+        u'common.dockerserver': {
+            'Meta': {'object_name': 'DockerServer'},
+            'bucket_list': ('django.db.models.fields.CharField', [], {'default': "'/etc/opendevelop/buckets'", 'max_length': '128'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '32'}),
+            'url': ('django.db.models.fields.CharField', [], {'max_length': '64'})
+        },
         u'common.opendevelopuser': {
             'Meta': {'object_name': 'OpenDevelopUser'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
@@ -96,11 +105,13 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '32'}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '32'}),
-            'url': ('django.db.models.fields.URLField', [], {'max_length': '64'})
+            'url': ('django.db.models.fields.URLField', [], {'default': "''", 'max_length': '64', 'null': 'True', 'blank': 'True'})
         },
         u'sandboxes.sandbox': {
             'Meta': {'object_name': 'Sandbox'},
             'cmd': ('django.db.models.fields.TextField', [], {}),
+            'container_id': ('django.db.models.fields.SlugField', [], {'max_length': '32', 'null': 'True'}),
+            'docker_server': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['common.DockerServer']", 'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['images.Image']"}),
             'owner_app': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['api.App']"}),

@@ -14,6 +14,7 @@ class Sandbox(models.Model):
     time = models.DateTimeField(auto_now=True)
     image = models.ForeignKey('images.Image')
     docker_server = models.ForeignKey('common.DockerServer', null=True)
+    container_id = models.SlugField(max_length=32, null=True)
     cmd = models.TextField()
     status = models.CharField(choices=STATUSES, max_length=16, default=CREATED)
 
