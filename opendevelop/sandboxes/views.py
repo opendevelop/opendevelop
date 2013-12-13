@@ -36,11 +36,11 @@ class SandboxListView(View):
         data = request.POST
         try:
             cmd = data['cmd']
-            image_id = data['image_id']
+            image = data['image']
         except KeyError:
             return HttpResponseBadRequest("Command or image_id missing")
         try:
-            image = Image.objects.get(pk=image_id)
+            image = Image.objects.get(slug=image)
         except:
             return HttpResponseBadRequest("No image found")
         files = request.FILES

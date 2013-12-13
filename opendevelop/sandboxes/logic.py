@@ -4,8 +4,7 @@ from images.models import Image
 import tasks
 
 
-def create(app, cmd, image_slug, files):
-    image = Image.objects.get(slug=image_slug)
+def create(app, cmd, image, files):
     docker_server = DockerServer.objects.order_by('?')[0]
     sandbox = Sandbox.objects.create(owner_app=app, cmd=cmd, image=image,
                                      docker_server=docker_server)

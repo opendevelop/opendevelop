@@ -22,6 +22,8 @@ def run_code(sandbox, cmd, files):
                                                             command=cmd,
                                                             volumes=volumes
                                                          )
+    sandbox.container_id = container_id
+    sandbox.save()
     binds = {
                 '/data': directory
             }
