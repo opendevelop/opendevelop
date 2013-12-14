@@ -31,12 +31,12 @@ def create_script(commands):
 
 @app.task
 def run_code(sandbox, cmd, files):
-	"""
-	This function is supposed to
-	  1. Create the sandbox bucket
-	  2. Create the sandbox container
-	  3. Start the sandbox container
-	"""
+    """
+    This function is supposed to
+     1. Create the sandbox bucket
+     2. Create the sandbox container
+     3. Start the sandbox container
+    """
     directory = '/etc/opendevelop/buckets/%s/' % sandbox.id
     data_dir = directory + "data/"
     os.makedirs(data_dir)
@@ -67,5 +67,4 @@ def run_code(sandbox, cmd, files):
         directory: '/var/opendevelop/bucket'
         }
     client.start(container_id, binds)
->>>>>>> Implement the tasks part for the docker command.
     return "created container"
