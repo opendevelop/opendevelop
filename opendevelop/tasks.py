@@ -56,8 +56,8 @@ def run_code(sandbox, cmd, files):
     try:
         client = sandbox.docker_server.api
         container_id = client.create_container(image=img,
-                                              command=docker_cmd,
-                                              volumes=volumes)
+                                               command=docker_cmd,
+                                               volumes=volumes)
     except Exception as e:
         raise e
 

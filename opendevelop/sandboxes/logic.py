@@ -12,8 +12,8 @@ def create(app, cmd, image, files):
     r = tasks.run_code.delay(sandbox, cmd, files)
     return sandbox
 
+
 def fetch_logs(sandbox):
-    print "id = "+ sandbox.container_id
     client = sandbox.docker_server.api
     print client
     try:
