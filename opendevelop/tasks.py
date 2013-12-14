@@ -6,6 +6,9 @@ of OpenDevelop.
 from __future__ import absolute_import
 from celery import Celery
 from django.conf import settings
+from django.template.loader import get_template
+from django.template import Context
+import json
 import os
 import time
 
@@ -18,6 +21,14 @@ app = Celery('opendevelop',
              backend='amqp')
 app.config_from_object('django.conf:settings')
 
+
+def create_script(commands):
+    template = get_template("start")
+    print commands
+    c = Context({'commands': commands[:-1], 'last_cmd': commands[-1]})
+    return template.render(c)
+
+
 @app.task
 def run_code(sandbox, cmd, files):
 	"""
@@ -27,31 +38,37 @@ def run_code(sandbox, cmd, files):
 	  3. Start the sandbox container
 	"""
     directory = '/etc/opendevelop/buckets/%s/' % sandbox.id
-    os.mkdir(directory)
+    data_dir = directory + "data/"
+    os.makedirs(data_dir)
     for key, val in files.iteritems():
-        with open(directory+key, 'wb+') as destination:
+        with open(data_dir+key, 'wb+') as destination:
             for chunk in val.chunks():
                 destination.write(chunk)
+
+    with open(directory+"start", 'w') as script:
+        script.write(create_script(cmd))
+
     img = sandbox.image.docker_image_name
     volumes = {
-                '/data': {}
-              }
+        '/var/opendevelop/bucket': {}
+        }
+    docker_cmd = "bin/sh /var/opendevelop/bucket/start"
     try:
-        container_id = sandbox.docker_server.api.create_container(image=img,
-                                                                  command=cmd,
-                                                                  volumes=volumes
-                                                                 )
+        #client = sandbox.docker_server.api
+        import docker
+        client = docker.Client()
+        container_id = client.create_container(image=img,
+                                              command=docker_cmd,
+                                              volumes=volumes)
     except Exception as e:
-        print dir(e)
-        print dir(e.response)
-        print e.response.url
-        print e.response.content
         raise e
 
     sandbox.container_id = container_id
+    print "id = "+ str(container_id)
     sandbox.save()
     binds = {
-                directory: '/data'
-            }
-    sandbox.docker_server.start(container_id, binds)
+        directory: '/var/opendevelop/bucket'
+        }
+    client.start(container_id, binds)
+>>>>>>> Implement the tasks part for the docker command.
     return "created container"

@@ -12,6 +12,7 @@ from django.views.generic import View
 from models import Sandbox
 from images.models import Image
 import logic
+import json
 
 
 class SandboxListView(View):
@@ -28,23 +29,30 @@ class SandboxListView(View):
         sandboxes_dict = [s.to_dict() for s in sandboxes]
         return JSONResponse({'sandboxes': sandboxes_dict})
 
-    @oauth
+    #@oauth
     def post(self, request):
         """
         Creates a new sandbox for the currently authenticated app.
         """
+
         data = request.POST
         try:
             cmd = data['cmd']
             image = data['image']
-        except KeyError:
-            return HttpResponseBadRequest("Command or image_id missing")
+        except (ValueError, KeyError):
+            return HttpResponseBadRequest("Command or image slug missing")
+
+        try:
+            commands = json.loads(cmd)['commands']
+        except (ValueError, KeyError):
+            return HttpResponseBadRequest("Malformed cmd field")
+
         try:
             image = Image.objects.get(slug=image)
         except:
             return HttpResponseBadRequest("No image found")
         files = request.FILES
-        sandbox = logic.create(request.app, cmd, image, files)
+        sandbox = logic.create(request.app, commands, image, files)
         return JSONResponse({'sandbox_id': sandbox.id})
 
 
