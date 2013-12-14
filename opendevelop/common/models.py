@@ -13,12 +13,15 @@ class DockerServer(models.Model):
 
     def __unicode__(self):
         return self.name
-    
+
     @property
     def api(self):
         if (not self._api):
-            base_url = 'http://%s' % self.url
-            self._api = docker.Client(base_url, '1.5')
+            if self.url == 'localhost':
+                self._api = docker.Client()
+            else:
+                base_url = 'http://%s' % self.url
+                self._api = docker.Client(base_url, '1.5')
         return self._api
 
 

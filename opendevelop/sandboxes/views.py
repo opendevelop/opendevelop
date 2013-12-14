@@ -29,7 +29,7 @@ class SandboxListView(View):
         sandboxes_dict = [s.to_dict() for s in sandboxes]
         return JSONResponse({'sandboxes': sandboxes_dict})
 
-    #@oauth
+    @oauth
     def post(self, request):
         """
         Creates a new sandbox for the currently authenticated app.

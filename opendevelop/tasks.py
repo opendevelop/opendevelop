@@ -54,9 +54,7 @@ def run_code(sandbox, cmd, files):
         }
     docker_cmd = "bin/sh /var/opendevelop/bucket/start"
     try:
-        #client = sandbox.docker_server.api
-        import docker
-        client = docker.Client()
+        client = sandbox.docker_server.api
         container_id = client.create_container(image=img,
                                               command=docker_cmd,
                                               volumes=volumes)
