@@ -61,8 +61,7 @@ def run_code(sandbox, cmd, files):
     except Exception as e:
         raise e
 
-    sandbox.container_id = container_id
-    print "id = "+ str(container_id)
+    sandbox.container_id = container_id['Id']
     sandbox.save()
     binds = {
         directory: '/var/opendevelop/bucket'

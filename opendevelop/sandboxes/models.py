@@ -14,7 +14,7 @@ class Sandbox(models.Model):
     time = models.DateTimeField(auto_now=True)
     image = models.ForeignKey('images.Image')
     docker_server = models.ForeignKey('common.DockerServer', null=True)
-    container_id = models.SlugField(max_length=32)
+    container_id = models.SlugField(max_length=32, null=True)
     cmd = models.TextField()
     status = models.CharField(choices=STATUSES, max_length=16, default=CREATED)
 
@@ -37,5 +37,5 @@ class Sandbox(models.Model):
 
 class SandboxLog(models.Model):
     sandbox = models.OneToOneField('sandboxes.Sandbox', related_name="log")
-    return_code = models.IntegerField()
+    return_code = models.IntegerField(null=True, blank=True)
     logs = models.TextField()
