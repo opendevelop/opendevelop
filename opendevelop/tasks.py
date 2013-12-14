@@ -1,3 +1,8 @@
+"""
+This module should handle all the asynchronous tasks
+of OpenDevelop.
+"""
+
 from __future__ import absolute_import
 from celery import Celery
 from django.conf import settings
@@ -15,6 +20,12 @@ app.config_from_object('django.conf:settings')
 
 @app.task
 def run_code(sandbox, cmd, files):
+	"""
+	This function is supposed to
+	  1. Create the sandbox bucket
+	  2. Create the sandbox container
+	  3. Start the sandbox container
+	"""
     directory = '/etc/opendevelop/buckets/%s/' % sandbox.id
     os.mkdir(directory)
     for key, val in files.iteritems():
