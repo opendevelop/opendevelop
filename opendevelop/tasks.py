@@ -40,7 +40,7 @@ def run_code(sandbox, cmd, files):
     sandbox.container_id = container_id
     sandbox.save()
     binds = {
-                '/data': directory
+                directory: '/data'
             }
     sandbox.docker_server.start(container_id, binds)
     return "created container"
