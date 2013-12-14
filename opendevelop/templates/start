@@ -1,0 +1,4 @@
+cd /var/opendevelop/bucket/data
+{% for command in commands%}
+    {{command }} &&
+{% endfor %}
