@@ -72,6 +72,7 @@ class SandboxSingleView(View):
             sandbox = Sandbox.objects.get(pk=sandbox_id)
         except Sandbox.DoesNotExist:
             return HttpResponseNotFound("SandBox not found")
-        logic.fetch_logs(sandbox)
+        if sandbox.status != 'terminated':
+            logic.fetch_logs(sandbox)
         sandbox_dict = sandbox.to_dict()
         return JSONResponse(content=sandbox_dict)

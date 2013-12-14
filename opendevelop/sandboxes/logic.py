@@ -24,3 +24,4 @@ def fetch_logs(sandbox):
     top = client.top(sandbox.container_id)
     if not top['Processes']:
         sandbox.log.return_code = client.wait(sandbox.container_id)
+        sandbox.status = 'terminated'
