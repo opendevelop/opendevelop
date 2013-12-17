@@ -135,6 +135,7 @@ INSTALLED_APPS = (
     'api',
     'images',
     'sandboxes',
+	'djcelery',
 )
 
 # A sample logging configuration. The only tangible logging
