@@ -24,7 +24,7 @@ app.config_from_object('django.conf:settings')
 
 
 def create_script(commands):
-    template = get_template("start")
+    template = get_template("start.sh")
     print commands
     c = Context({'commands': commands[:-1], 'last_cmd': commands[-1]})
     return template.render(c)
