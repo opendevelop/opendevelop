@@ -16,6 +16,7 @@ import time
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'opendevelop.settings')
 from sandboxes.models import Sandbox
 
+CELERY_ACCEPT_CONTENT = ['json']
 app = Celery('opendevelop',
              broker='amqp://guest@localhost',
              backend='amqp')
