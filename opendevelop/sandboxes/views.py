@@ -57,8 +57,8 @@ class SandboxListView(View):
         except:
             return HttpResponseBadRequest("No image found")
         files = request.FILES
-        sandbox = logic.create(request.app, json.dumps(commands), image, files)
-        return JSONResponse({'sandbox_id': sandbox.id})
+        sandbox = logic.create(request.app, commands, image, files)
+        return JSONResponse(sandbox.slug)
 
 
 class SandboxSingleView(View):
@@ -67,14 +67,14 @@ class SandboxSingleView(View):
     """
 
     @oauth
-    def get(self, request, sandbox_id):
+    def get(self, request, sandbox_slug):
         """
         Returns information about a specific sandbox
         owned by the currently authenticated app and identified
-        by the given sandbox_id
+        by the given sandbox_slug
         """
         try:
-            sandbox = Sandbox.objects.get(pk=sandbox_id)
+            sandbox = Sandbox.objects.get(slug=sandbox_slug)
         except Sandbox.DoesNotExist:
             return HttpResponseNotFound("SandBox not found")
         if sandbox.status != 'terminated':

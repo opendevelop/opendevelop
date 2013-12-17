@@ -53,15 +53,13 @@ def run_code(sandbox, cmd, files):
     volumes = {
         '/var/opendevelop/bucket': {}
         }
-    docker_cmd = 'bin/sh /var/opendevelop/bucket/start'
+    docker_cmd = 'sh start'
     try:
         client = sandbox.docker_server.api
         container_id = client.create_container(image=img,
                                                command=docker_cmd,
                                                volumes=volumes)
-        print 'Container id %s' % container_id
     except Exception as e:
-        print 'Shit'
         raise e
 
     sandbox.container_id = container_id['Id']
@@ -70,4 +68,4 @@ def run_code(sandbox, cmd, files):
         directory: '/var/opendevelop/bucket'
         }
     client.start(container_id, binds)
-    return "created container"
+    return True
