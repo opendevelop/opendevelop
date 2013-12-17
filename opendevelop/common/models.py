@@ -9,7 +9,7 @@ class DockerServer(models.Model):
     name = models.CharField(max_length=32)
     bucket_list = models.CharField(max_length=128,
                                    default='/etc/opendevelop/buckets')
-    url = models.CharField(max_length=64, default='unix:///run/docker.sock')
+    url = models.CharField(max_length=64, default='unix://run/docker.sock')
 
     def __unicode__(self):
         return self.name
