@@ -1,10 +1,6 @@
 #! bin/bash
 
 {% for command in commands %}
-    {{ command }}
-	EXITCODE=$?
-	if [ $EXITCODE -gt 0]; then
-		exit $EXITCODE;
-	fi
+{{ command }} &&
 {% endfor %}
 {{ last_cmd }}

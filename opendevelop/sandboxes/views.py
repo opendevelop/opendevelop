@@ -43,8 +43,13 @@ class SandboxListView(View):
             return HttpResponseBadRequest("Command or image slug missing")
 
         try:
-            commands = json.loads(cmd)['commands']
-        except (ValueError, KeyError):
+            commands = json.loads(cmd)
+        except ValueError:
+            commands = [cmd]
+        except KeyError:
+            return HttpResponseBadRequest("Malformed cmd field")
+        
+        if (not (type(commands)) == list):
             return HttpResponseBadRequest("Malformed cmd field")
 
         try:
@@ -52,7 +57,7 @@ class SandboxListView(View):
         except:
             return HttpResponseBadRequest("No image found")
         files = request.FILES
-        sandbox = logic.create(request.app, commands, image, files)
+        sandbox = logic.create(request.app, json.dumps(commands), image, files)
         return JSONResponse({'sandbox_id': sandbox.id})
 
 
