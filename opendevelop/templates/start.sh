@@ -1,6 +1,6 @@
 #! bin/bash
 
 {% for command in commands %}
-{{ command }} &&
+{{ command|safe }} &&
 {% endfor %}
 {{ last_cmd }}
