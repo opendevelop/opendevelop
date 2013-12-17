@@ -8,12 +8,14 @@ from django.core.management.base import BaseCommand, CommandError
 from django.core.management.commands.runserver import Command as Runserver
 import sys
 
+
 class Command(BaseCommand):
     """
     This class defines the `run` command for manage.py
     """
 
     help = 'Starts the opendevelop server'
+
     def handle(self, *args, **options):
         """
         This function prepares the options for running the service

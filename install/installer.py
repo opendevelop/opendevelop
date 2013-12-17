@@ -13,6 +13,7 @@ from subprocess import PIPE
 from sys import exit
 from sys import stderr
 
+
 def die(error, exit_code=1):
     """
     Writes error to `stderr` pipe and exits with the
