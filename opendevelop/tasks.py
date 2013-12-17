@@ -59,7 +59,9 @@ def run_code(sandbox, cmd, files):
         container_id = client.create_container(image=img,
                                                command=docker_cmd,
                                                volumes=volumes)
+        print 'Container id %s' % container_id
     except Exception as e:
+        print 'Shit'
         raise e
 
     sandbox.container_id = container_id['Id']

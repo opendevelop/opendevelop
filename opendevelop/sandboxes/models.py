@@ -1,5 +1,12 @@
 from django.db import models
+import random
 
+def _random_slug():
+    alphabet = '0123456789abcdef'
+    result = ''
+    for i in range(16):
+        result += random.choice(alphabet)
+    return result
 
 class Sandbox(models.Model):
     CREATED = 'created'
@@ -9,7 +16,7 @@ class Sandbox(models.Model):
                 (RUNNING, 'Running'),
                 (TERMINATED, 'Terminated'))
 
-    slug = models.SlugField(max_length=32)
+    slug = models.SlugField(max_length=32, default=_random_slug)
     owner_app = models.ForeignKey('api.App')
     time = models.DateTimeField(auto_now=True)
     image = models.ForeignKey('images.Image')
