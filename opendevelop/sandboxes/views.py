@@ -76,7 +76,7 @@ class SandboxSingleView(View):
         try:
             sandbox = Sandbox.objects.get(slug=sandbox_slug)
         except Sandbox.DoesNotExist:
-            return HttpResponseNotFound("SandBox not found")
+            return HttpResponseNotFound('SandBox not found')
         sandbox_dict = sandbox.to_dict()
         if sandbox.status != 'terminated':
             container_id = sandbox.container_id
