@@ -22,7 +22,9 @@ def fetch_logs(sandbox):
     except SandboxLog.DoesNotExist:
         SandboxLog.objects.create(sandbox=sandbox)
     sandbox.log.logs = client.logs(sandbox.container_id)
-    top = client.top(sandbox.container_id)
-    if not top['Processes']:
-        sandbox.log.return_code = client.wait(sandbox.container_id)
+    container = client.inspect_container(sandbox.container_id)
+    if not container['State']['Running']:
+        sandbox.log.return_code = container['State']['ExitCode']
         sandbox.status = 'terminated'
+    sandbox.log.save()
+    sandbox.save()

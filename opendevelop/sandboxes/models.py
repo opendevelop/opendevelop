@@ -46,3 +46,6 @@ class SandboxLog(models.Model):
     sandbox = models.OneToOneField('sandboxes.Sandbox', related_name="log")
     return_code = models.IntegerField(null=True, blank=True)
     logs = models.TextField()
+
+    def __unicode__(self):
+        return self.sandbox.slug
