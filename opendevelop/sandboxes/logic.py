@@ -17,7 +17,6 @@ def create(app, cmd, image, files):
 
 def fetch_logs(sandbox):
     client = sandbox.docker_server.api
-    print client
     try:
         sandbox.log
     except SandboxLog.DoesNotExist:

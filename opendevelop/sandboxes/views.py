@@ -77,7 +77,8 @@ class SandboxSingleView(View):
             sandbox = Sandbox.objects.get(slug=sandbox_slug)
         except Sandbox.DoesNotExist:
             return HttpResponseNotFound("SandBox not found")
-        if sandbox.status != 'terminated':
-            logic.fetch_logs(sandbox)
         sandbox_dict = sandbox.to_dict()
+        if sandbox.status != 'terminated':
+            container_id = sandbox.container_id
+            sandbox_dict['logs'] = sandbox.docker_server.api.logs(container_id)
         return JSONResponse(content=sandbox_dict)
