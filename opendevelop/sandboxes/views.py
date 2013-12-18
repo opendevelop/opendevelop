@@ -74,7 +74,8 @@ class SandboxSingleView(View):
         by the given sandbox_slug
         """
         try:
-            sandbox = Sandbox.objects.get(slug=sandbox_slug)
+            sandbox = Sandbox.objects.get(slug=sandbox_slug,
+                                          owner_app=request.app)
         except Sandbox.DoesNotExist:
             return HttpResponseNotFound('SandBox not found')
         sandbox_dict = sandbox.to_dict()
