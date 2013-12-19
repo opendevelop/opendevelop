@@ -1,3 +1,4 @@
 django==1.5.
 pyyaml==3.10
-South==0.8.
+South==0.8
+Sphinx==1.2
