@@ -23,3 +23,4 @@ Contents
     architecture
     api
     clients
+    install
