@@ -96,3 +96,28 @@ Example response
 
 Images
 ------
+
++------------+------------------------------+----------------------------------+
+| Verb       | URI                          | Description                      |
++============+==============================+==================================+
+| **GET**    | ``/api/images``              | List all available images to be  |
+|            |                              | used for sandbox creation        |
++------------+------------------------------+----------------------------------+
+
+
+Example request
+
+.. code-block:: bash
+
+    GET /api/images
+
+
+Example response
+
+.. code-block:: bash
+
+    {
+
+
+
+    }
