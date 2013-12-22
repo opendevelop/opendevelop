@@ -44,18 +44,33 @@ Example request
 
 .. code-block:: bash
 
-    GET /api/sandbox/
-
+    Request Url: http://snf-196443.vm.okeanos.grnet.gr:8080/api/sandbox
+    Request Method: GET
+    Params: {}
 
 Example response
 
 .. code-block:: bash
 
     {
-
-
-
+    "sandboxes": [
+        {
+            "status": "terminated",
+            "image": "my_image",
+            "cmd": "[\"python test.py\"]",
+            "return_code": 127,
+            "logs": "sh: 0: Can't open start\n"
+        },
+        {
+            "status": "running",
+            "image": "my_image",
+            "cmd": "[\"ls -a\"]",
+            "return_code": null,
+            "logs": null
+        }
+      ]
     }
+
 **Show Sandbox**
 
 Example request
@@ -70,9 +85,11 @@ Example response
 .. code-block:: bash
 
     {
-
-
-
+    "status": "terminated",
+    "image": "my_image",
+    "cmd": "[\"python test.py\"]",
+    "return_code": 0,
+    "logs": "hello opendevelop!\n"
     }
 
 **Create Sandbox**
@@ -81,18 +98,29 @@ Example request
 
 .. code-block:: bash
 
-    POST /api/sandbox
-
+    Request Url: http://snf-196443.vm.okeanos.grnet.gr:8080/api/sandbox
+    Request Method: POST
+    Files: {
+        "0": {
+            "webkitRelativePath": "",
+            "lastModifiedDate": "2013-12-22T22:27:47.000Z",
+            "name": "test.py",
+            "type": "text/x-python-script",
+            "size": 46
+           },
+        "length": 1
+    }
+    Params: {
+        "image": "my_image",
+        "cmd": "[\"python test.py\"]"
+    }
 
 Example response
 
 .. code-block:: bash
 
-    {
+    a326efb1fe1f980a
 
-
-
-    }
 
 Images
 ------
@@ -109,15 +137,13 @@ Example request
 
 .. code-block:: bash
 
-    GET /api/images
-
+    Request Url: http://snf-196443.vm.okeanos.grnet.gr:8080/api/images
+    Request Method: GET
+    Status Code: 200
+    Params: {}
 
 Example response
 
 .. code-block:: bash
 
-    {
-
-
-
-    }
+    ["my_image"]
