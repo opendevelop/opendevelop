@@ -40,9 +40,59 @@ Sandboxes
 
 **List Sandboxes**
 
+Example request
+
+.. code-block:: bash
+
+    GET /api/sandbox/
+
+
+Example response
+
+.. code-block:: bash
+
+    {
+
+
+
+    }
 **Show Sandbox**
 
+Example request
+
+.. code-block:: bash
+
+    GET /api/sandbox/1
+
+
+Example response
+
+.. code-block:: bash
+
+    {
+
+
+
+    }
+
 **Create Sandbox**
+
+Example request
+
+.. code-block:: bash
+
+    POST /api/sandbox
+
+
+Example response
+
+.. code-block:: bash
+
+    {
+
+
+
+    }
 
 Images
 ------
