@@ -19,6 +19,12 @@ sole backend for any code-executing task.
 However it is also opensource so that anyone can set up a private opendevelop
 installation.
 
+Opendevelop is based on the following technologies
+
+* `Django <https://docs.djangoproject.com/>`_
+* `Doker <https://www.docker.io/>`_
+* `Celery <http://www.celeryproject.org/>`_
+
 Contents
 ========
 
