@@ -53,7 +53,7 @@ def run_code(sandbox, cmd, files):
     volumes = {
         '/var/opendevelop/bucket': {}
         }
-    docker_cmd = 'sh start'
+    docker_cmd = '/bin/sh /var/opendevelop/bucket/start'
     try:
         client = sandbox.docker_server.api
         container_id = client.create_container(image=img,
