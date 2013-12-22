@@ -1,5 +1,0 @@
-Opendevelop Architecture
-^^^^^^^^^^^^^^^^^^^^^^^^
-
-Basic Components
-================

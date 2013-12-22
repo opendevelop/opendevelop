@@ -10,8 +10,14 @@ Welcome to opendevelop's documentation!
 Overview
 ========
 
-Opendevelop is a .....
+OpenDevelop is an open source platform dedicated on facilitating the procedure
+of running code. It provides a state-of-the-art asynchronous REST API to allow
+users run their code with a single HTTP request. OpenDevelop has been designed
+and designated to be used by `sourceLair <https://www.sourcelair.com/>`_  as its
+sole backend for any code-executing task.
 
+However it is also opensource so that anyone can set up a private opendevelop
+installation.
 
 Contents
 ========
@@ -20,7 +26,7 @@ Contents
     :maxdepth: 2
     :glob:
 
-    architecture
+    concepts
     api
     clients
     install
