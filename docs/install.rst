@@ -17,9 +17,27 @@ At first you should clone the Opendevelop public repository.
 
     git clone git@bitbucket.org:sourcelair/opendevelop.git
 
-Webserver
----------
 
+Next thing to do is run the install script as a root user from the root directory of opendevelop.
+
+.. code-block:: bash
+
+    sudo python installer.py
+
+
+Starting the service
+---------
+In order to get OpenDevelop up and running you need to start the *Celery* and the *Django server* from the
+command line, from within the manage.py directory, in two different Bash sessions.
+
+.. code-block:: bash
+
+    ./manage.py runserver 127.0.0.0:8000
+
+
+.. code-block:: bash
+
+    celery worker -c 1 --app=tasks.app --autoreload -l DEBUG
 DockerServer
 ------------
 
