@@ -1,3 +1,5 @@
 *.pyc
 *.swp
 *.swo
+docs/_build
+opendevelop/opendevelop/__init__.pyc
