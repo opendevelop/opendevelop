@@ -22,7 +22,7 @@ installation.
 Opendevelop is based on the following technologies
 
 * `Django <https://docs.djangoproject.com/>`_
-* `Doker <https://www.docker.io/>`_
+* `Docker <https://www.docker.io/>`_
 * `Celery <http://www.celeryproject.org/>`_
 
 Contents
