@@ -6,7 +6,7 @@ their code with a single HTTP request. OpenDevelop has been designed and designa
 be used by sourceLair as its sole backend for any code-executing task.
 
 ## Open source
-OpenDevelop is an open-source project published on <a href="http://github.com/sourcelair/opendecelop">GitHub</a>, 
+OpenDevelop is an open-source project published on <a href="http://github.com/sourcelair/opendevelop">GitHub</a>, 
 under the MIT License.
 That means that anyone can contribute to its code and improve it, while it has a commercial-friendly license
 that allows it to be used and redestributed by companies for commercial purposes.
