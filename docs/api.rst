@@ -50,7 +50,7 @@ Example request
 
 Example response
 
-.. code-block:: bash
+.. code-block:: json
 
     {
     "sandboxes": [
@@ -82,7 +82,7 @@ Example request
 
 Example response
 
-.. code-block:: bash
+.. code-block:: json
 
     {
     "status": "terminated",
@@ -117,7 +117,7 @@ Example request
 
 Example response
 
-.. code-block:: bash
+.. code-block:: json
 
     a326efb1fe1f980a
 
@@ -144,6 +144,6 @@ Example request
 
 Example response
 
-.. code-block:: bash
+.. code-block:: json
 
-    ["my_image"]
+    ["base"]
