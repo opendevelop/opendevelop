@@ -49,14 +49,34 @@ Opendevelop makes use of the
 . So the addition of a new App, a new DockerServer or a new Image is done through
 the admin panel.
 
+Adding a DockerServer
+----------------------
+
+OpenDevelop relies on Docker to run code in its sandboxes, so in order to get OpenDevelop working, at least
+one Docker Server is required. To add a new Docker Server go the Django administration panel of your
+OpenDevelop installation (<opendevelop-host>:<opendevelop-port>/admin/), and click on the *+ Add* icon,
+next to *Docker Servers* row of the *Common* app. The default URL for the Docker server is the local Unix domain
+socket, to which Docker listens, while the default path for its buckets is the one that OpenDevelop creates on
+its installation.
+
+.. image:: images/add-docker-server.png
+    :target: _images/add-docker-server.png
+    :scale: 20 %
+
+Adding an Image
+----------------
+
+Each OpenDevelop image corresponds to a specific Docker image. To add a new Image go the Django administration panel of your
+OpenDevelop installation (<opendevelop-host>:<opendevelop-port>/admin/), and click on the *+ Add* icon,
+next to *Images* row of the *Images* app. For each image its Name, Slug, Description and Docker image name have to be supplied.
+Optionally a URL of the image to the Docker public index can be supplied.
+
+.. image:: images/add-image.png
+    :target: _images/add-image.png
+    :scale: 20 %
+
 Adding an App
 -------------
 .. image:: images/add-app.png
     :target: _images/add-app.png
     :scale: 20 %
-
-Adding a DockerServer
-----------------------
-
-Adding an Image
-----------------
