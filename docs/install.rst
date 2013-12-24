@@ -52,7 +52,7 @@ the admin panel.
 Adding an App
 -------------
 .. image:: images/add-app.png
-    :target: _images/add-app.png
+    :target: images/add-app.png
     :scale: 20 %
 
 Adding a DockerServer
