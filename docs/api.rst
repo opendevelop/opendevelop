@@ -17,7 +17,7 @@ that includes the id and the secret key of the App.
 
 .. code-block:: python
 
-    {'HTTP_AUTHORIZATION' : "Basic " + base64("<id>:<secret>")}
+    {'Authorization' : "Basic " + base64("<id>:<secret>")}
 
 
 API calls
