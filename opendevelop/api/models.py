@@ -24,8 +24,8 @@ class App(models.Model):
     slug = models.SlugField(max_length=32)
     owner = models.ForeignKey('common.OpenDevelopUser')
     time = models.DateTimeField(auto_now=True)
-    homepage = models.URLField()
-    description = models.TextField()
+    homepage = models.URLField(blank=True)
+    description = models.TextField(blank=True)
     is_active = models.BooleanField()
 
     def __unicode__(self):
