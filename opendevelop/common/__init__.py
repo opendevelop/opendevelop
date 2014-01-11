@@ -6,6 +6,7 @@ from subprocess import PIPE
 
 admin.site.register(DockerServer)
 
+
 def cmd(args):
     return call(args, stdout=PIPE, stderr=PIPE)
 

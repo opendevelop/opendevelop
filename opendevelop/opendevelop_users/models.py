@@ -10,14 +10,18 @@ def _random(digits):
         result += random.choice(alphabet)
     return result
 
+
 def _random_client_id():
     return _random(20)
+
 
 def _random_client_secret():
     return _random(40)
 
+
 class OpenDevelopUser(AbstractUser):
     is_organization = models.BooleanField()
+
 
 class App(models.Model):
     id = models.AutoField(primary_key=True)
