@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 import random
 
 
@@ -15,6 +16,9 @@ def _random_client_id():
 def _random_client_secret():
     return _random(40)
 
+class OpenDevelopUser(AbstractUser):
+    is_organization = models.BooleanField()
+
 class App(models.Model):
     id = models.AutoField(primary_key=True)
     client_id = models.CharField(max_length=20, default=_random_client_id)
@@ -22,7 +26,7 @@ class App(models.Model):
                                      default=_random_client_secret)
     name = models.CharField(max_length=32)
     slug = models.SlugField(max_length=32)
-    owner = models.ForeignKey('common.OpenDevelopUser', related_name='owner')
+    owner = models.ForeignKey(OpenDevelopUser, related_name='owner')
     time = models.DateTimeField(auto_now=True)
     homepage = models.URLField(blank=True)
     description = models.TextField(blank=True)
