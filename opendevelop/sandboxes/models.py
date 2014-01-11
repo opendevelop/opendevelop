@@ -17,7 +17,7 @@ class Sandbox(models.Model):
                 (TERMINATED, 'Terminated'))
 
     slug = models.SlugField(max_length=32, default=_random_slug)
-    owner_app = models.ForeignKey('api.App')
+    owner_app = models.ForeignKey('opendevelop_users.App')
     time = models.DateTimeField(auto_now=True)
     image = models.ForeignKey('images.Image')
     docker_server = models.ForeignKey('common.DockerServer', null=True)

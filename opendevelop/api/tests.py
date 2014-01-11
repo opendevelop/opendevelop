@@ -7,7 +7,7 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 from django.utils import simplejson as json
-import models_factory as mf
+from opendevelop_users import models_factory as mf
 from sandboxes import models_factory as smf
 from images import models_factory as imf
 import base64

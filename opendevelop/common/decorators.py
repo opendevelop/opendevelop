@@ -1,4 +1,4 @@
-from api.models import App
+from opendevelop_users.models import App
 from common.views import HttpResponseUnauthorized
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponseServerError

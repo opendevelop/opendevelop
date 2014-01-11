@@ -138,6 +138,7 @@ INSTALLED_APPS = (
     'api',
     'images',
     'sandboxes',
+    'opendevelop_users'
 )
 
 # A sample logging configuration. The only tangible logging
