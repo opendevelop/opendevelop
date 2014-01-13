@@ -25,6 +25,7 @@ class Command(BaseCommand):
             '--organization',
             dest='organization',
             action='store_true',
+            default=False,
             help="Is this user an organization"),
     )
 
@@ -34,7 +35,7 @@ class Command(BaseCommand):
         passwd = options['passwd']
         is_org = options['organization']
 
-        if username is None and mail is None and passwd is None:
+        if username is None or mail is None or passwd is None:
             raise CommandError("Missing Data")
 
         if not re.match(r"[^@]+@[^@]+\.[^@]+", mail):
@@ -47,3 +48,5 @@ class Command(BaseCommand):
                                                      email=mail,
                                                      password=passwd,
                                                      is_organization=is_org)
+
+        self.stdout.write("New user %s created succesfully" % username)
