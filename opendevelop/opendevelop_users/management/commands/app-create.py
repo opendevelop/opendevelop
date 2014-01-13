@@ -7,7 +7,7 @@ import re
 
 class Command(BaseCommand):
 
-    help = "Add a new Opendevelop user"
+    help = "Add a new Opendevelop App"
 
     option_list = BaseCommand.option_list + (
         make_option(
@@ -32,8 +32,17 @@ class Command(BaseCommand):
         if username is None and mail is None:
             raise CommandError("Please give a username or an email")
 
+        if app_name is None:
+            raise CommandError("Please provide a name for the app")
+
         try:
             user = models.OpenDevelopUser.objects.get(Q(username=username) |
                                                       Q(email=mail))
         except models.OpenDevelopUser.DoesNotExist:
             raise CommandError("User not found")
+
+        app = models.App.objects.create(name=app_name, owner=user)
+
+        self.stdout.write("An app created succesfully\n"
+                          "Client ID %s\nClient Secret %s\n"
+                          % (app.client_id, app.client_secret))
