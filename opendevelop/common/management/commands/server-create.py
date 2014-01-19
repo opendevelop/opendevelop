@@ -1,9 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
-from images.models import Image
 from common.models import DockerServer
-import re
-
 
 class Command(BaseCommand):
 
@@ -31,4 +28,16 @@ class Command(BaseCommand):
         url = options['url']
         buckets_dir = options['buckets']
 
-        self.stdout.write("Succesully created server\n")
+        args = dict()
+        if name is None:
+            raise CommandError("Please specify a name for the new server")
+        args['name'] = name
+
+        if url:
+            args['url'] = url
+
+        if buckets_dir:
+            args['bucket_list']=buckets_dir
+
+        server = DockerServer.objects.create(**args)
+        self.stdout.write("Succesully created server %s\n" % server)
