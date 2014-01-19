@@ -11,6 +11,10 @@ docker servers.
 Install
 =======
 
+OpenDevelop is being developed using Ubuntu and until it reaches a more stable state, the
+documentation will assume you are installing it on an Ubuntu machine, preferably Ubuntu 13.10 or
+greater.
+
 At first you should clone the Opendevelop public repository.
 
 .. code-block:: bash
@@ -18,11 +22,28 @@ At first you should clone the Opendevelop public repository.
     git clone git@github.com:sourceLair/opendevelop.git
 
 
+Before running the installer make sure you have *rabbitmq-server* install. If you do not have it installed
+you can run
+
+.. code-block:: bash
+
+    sudo apt-get install rabbitmq-server
+
+on your terminal to install it.
+
 Next thing to do is run the install script as a root user from the root directory of opendevelop.
 
 .. code-block:: bash
 
     sudo python installer.py
+
+Last thing is to create the OpenDevelop models into the database. To do that you have to run the following
+two commands, from within the manage.py directory. 
+
+.. code-block:: bash
+
+    python manage.py syncdb
+    python manage.py migrate
 
 
 Starting the service
@@ -32,7 +53,7 @@ command line, from within the manage.py directory, in two different Bash session
 
 .. code-block:: bash
 
-    ./manage.py runserver 127.0.0.0:8000
+    ./manage.py runserver 127.0.0.1:8000
 
 
 .. code-block:: bash
