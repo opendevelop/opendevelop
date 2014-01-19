@@ -16,5 +16,5 @@ class DockerServer(models.Model):
     @property
     def api(self):
         if (not self._api):
-            self._api = docker.Client(self.url, '1.5')
+            self._api = docker.Client(self.url)
         return self._api
