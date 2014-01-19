@@ -3,7 +3,7 @@ from optparse import make_option
 from images.models import Image
 from common.models import DockerServer
 import re
-import docker
+
 
 class Command(BaseCommand):
 
@@ -46,28 +46,21 @@ class Command(BaseCommand):
         #check all docker servers for the image
         #if not there download it
         servers = DockerServer.objects.all()
-        print servers
-        get_repos = lambda x : x['Repository']
+        get_repos = lambda x: x['Repository']
         for server in servers:
             client = server.api
-            print client.base_url
             images = client.images()
             repos = map(get_repos, images)
-            if not(name in images):
-                print docker_image
-                client.pull(docker_image)
-                print "Image not found in server %s. Downloading ...\n" % server.name
+            if not(docker_image in repos):
+                print "Image not found in server %s. Downloading ...\n" % \
+                      server.name
+                response = client.pull(docker_image)
+                if "error" in response:
+                    raise CommandError("There is no such docker image")
             else:
-                print "Image in server %s.\n" % server.name
+                print "Image found in server %s.\n" % server.name
 
-        try:
-            user = models.OpenDevelopUser.objects.get(Q(username=username) |
-                                                      Q(email=mail))
-        except models.OpenDevelopUser.DoesNotExist:
-            raise CommandError("User not found")
+        image = Image.objects.create(name=name, description=description,
+                                     docker_image_name=docker_image)
 
-        app = models.App.objects.create(name=app_name, owner=user)
-
-        self.stdout.write("An app created succesfully\n"
-                          "Client ID %s\nClient Secret %s\n"
-                          % (app.client_id, app.client_secret))
+        self.stdout.write("Image %s created succesfully\n" % image)
