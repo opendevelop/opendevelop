@@ -15,7 +15,7 @@ At first you should clone the Opendevelop public repository.
 
 .. code-block:: bash
 
-    git clone git@bitbucket.org:sourcelair/opendevelop.git
+    git clone git@github.com:sourceLair/opendevelop.git
 
 
 Next thing to do is run the install script as a root user from the root directory of opendevelop.
