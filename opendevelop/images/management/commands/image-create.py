@@ -1,8 +1,9 @@
 from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
-from models import Image
+from images.models import Image
+from common.models import DockerServer
 import re
-
+import docker
 
 class Command(BaseCommand):
 
@@ -37,10 +38,27 @@ class Command(BaseCommand):
             raise CommandError("Please give an image name")
 
         if description is None:
+            raise CommandError("Please give a description")
 
         if docker_image is None:
             raise CommandError("Please provide an docker image name")
 
+        #check all docker servers for the image
+        #if not there download it
+        servers = DockerServer.objects.all()
+        print servers
+        get_repos = lambda x : x['Repository']
+        for server in servers:
+            client = server.api
+            print client.base_url
+            images = client.images()
+            repos = map(get_repos, images)
+            if not(name in images):
+                print docker_image
+                client.pull(docker_image)
+                print "Image not found in server %s. Downloading ...\n" % server.name
+            else:
+                print "Image in server %s.\n" % server.name
 
         try:
             user = models.OpenDevelopUser.objects.get(Q(username=username) |
