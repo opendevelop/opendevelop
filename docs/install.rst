@@ -37,6 +37,14 @@ Next thing to do is run the install script as a root user from the root director
 
     sudo python installer.py
 
+Last thing is to create the OpenDevelop models into the database. To do that you have to run the following
+two commands, from within the manage.py directory. 
+
+.. code-block:: bash
+
+    python manage.py syncdb
+    python manage.py migrate
+
 
 Starting the service
 ---------
