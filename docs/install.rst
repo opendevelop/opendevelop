@@ -45,7 +45,7 @@ command line, from within the manage.py directory, in two different Bash session
 
 .. code-block:: bash
 
-    ./manage.py runserver 127.0.0.0:8000
+    ./manage.py runserver 127.0.0.1:8000
 
 
 .. code-block:: bash
