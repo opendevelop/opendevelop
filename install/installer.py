@@ -79,5 +79,12 @@ opendevelop_call(['./manage.py', 'syncdb'], cwd='opendevelop')
 print '  - Running ./manage.py migrate...'
 opendevelop_call(['./manage.py', 'migrate'], cwd='opendevelop')
 
+print '  - Settings group rights for database'
+opendevelop_call(['chmod', 'g+rwx', '/etc/opendevelop/db'])
+
+print 'In order to access OpenDevelop, you need a Django admin user.'
+print 'Let\'s create one now:'
+opendevelop_call(['./manage.py', 'createsuperuser'], cwd='opendevelop')
+
 # Exit
 print 'Ready to go.'
