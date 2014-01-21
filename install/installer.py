@@ -23,6 +23,10 @@ def die(error, exit_code=1):
     stderr.write(error)
     exit(exit_code)
 
+def opendevelop_call(args, **kwargs):
+    args = ['sudo', '-u', 'opendevelop'] + args
+    return call(args, **kwargs) 
+
 # Check if script is run by root user
 USER = getuser()
 if (not USER == 'root'):
@@ -65,6 +69,15 @@ print 'Setting proper ownership and permissions for the directory...'
 call(['chown', APP_OWNER, APP_DIR], stdout=PIPE, stderr=PIPE)
 call(['chmod', '775', APP_DIR], stdout=PIPE, stderr=PIPE)
 print '  Okay.'
+
+# Bootstrap the database
+print 'Bootstrapping database'
+
+print '  - Running ./manage.py syncdb...'
+opendevelop_call(['./manage.py', 'syncdb'], cwd='opendevelop')
+
+print '  - Running ./manage.py migrate...'
+opendevelop_call(['./manage.py', 'migrate'], cwd='opendevelop')
 
 # Exit
 print 'Ready to go.'
