@@ -1,6 +1,9 @@
 # Django settings for opendevelop project.
 
 import os
+import djcelery
+
+djcelery.setup_loader()
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -138,7 +141,9 @@ INSTALLED_APPS = (
     'api',
     'images',
     'sandboxes',
-    'opendevelop_users'
+    'opendevelop_users',
+    'djcelery'
+
 )
 
 # A sample logging configuration. The only tangible logging
