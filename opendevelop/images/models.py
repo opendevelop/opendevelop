@@ -18,6 +18,6 @@ class Image(models.Model):
     def __unicode__(self):
         return self.name
 
-    @receiver(pre_save)
+    @receiver(pre_save, sender='Image')
     def my_callback(sender, instance, *args, **kwargs):
             instance.slug = slugify(instance.name)
