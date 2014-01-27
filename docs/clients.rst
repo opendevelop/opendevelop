@@ -7,3 +7,10 @@ are listed below.
 Python client
 =============
 A Python client is available for OpenDevelop at http://www.github.com/sourcelair/opendevelop-py
+
+**Install client**
+The Python client can be installed using pip.
+
+.. code-block:: bash
+
+    pip install opendevelop

@@ -44,7 +44,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'opendevelop'
-copyright = u'2013, opendevelop_team'
+copyright = u'2013, sourceLair Ltd.'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

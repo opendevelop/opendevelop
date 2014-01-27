@@ -17,7 +17,7 @@ that includes the id and the secret key of the App.
 
 .. code-block:: python
 
-    {'HTTP_AUTHORIZATION' : "Basic " + base64("<id>:<secret>")}
+    {'Authorization' : "Basic " + base64("<id>:<secret>")}
 
 
 API calls
@@ -44,7 +44,7 @@ Example request
 
 .. code-block:: bash
 
-    Request Url: http://snf-196443.vm.okeanos.grnet.gr:8080/api/sandbox
+    Request Url: http://opendevelop/api/sandbox
     Request Method: GET
     Params: {}
 
@@ -98,7 +98,7 @@ Example request
 
 .. code-block:: bash
 
-    Request Url: http://snf-196443.vm.okeanos.grnet.gr:8080/api/sandbox
+    Request Url: http://opendevelop/api/sandbox
     Request Method: POST
     Files: {
         "0": {
@@ -137,7 +137,7 @@ Example request
 
 .. code-block:: bash
 
-    Request Url: http://snf-196443.vm.okeanos.grnet.gr:8080/api/images
+    Request Url: http://opendevelop/api/images
     Request Method: GET
     Status Code: 200
     Params: {}
