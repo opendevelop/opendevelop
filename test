@@ -1,0 +1,5 @@
+#! /bin/bash
+
+source /etc/opendevelop/venv/bin/activate
+cd opendevelop
+./manage.py test

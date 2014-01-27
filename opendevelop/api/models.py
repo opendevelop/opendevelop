@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 import random
 
 
@@ -9,11 +10,18 @@ def _random(digits):
         result += random.choice(alphabet)
     return result
 
+
 def _random_client_id():
     return _random(20)
 
+
 def _random_client_secret():
     return _random(40)
+
+
+class OpenDevelopUser(AbstractUser):
+    is_organization = models.BooleanField()
+
 
 class App(models.Model):
     id = models.AutoField(primary_key=True)
@@ -22,10 +30,10 @@ class App(models.Model):
                                      default=_random_client_secret)
     name = models.CharField(max_length=32)
     slug = models.SlugField(max_length=32)
-    owner = models.ForeignKey('common.OpenDevelopUser')
+    owner = models.ForeignKey(OpenDevelopUser, related_name='owner')
     time = models.DateTimeField(auto_now=True)
-    homepage = models.URLField()
-    description = models.TextField()
+    homepage = models.URLField(blank=True)
+    description = models.TextField(blank=True)
     is_active = models.BooleanField()
 
     def __unicode__(self):
