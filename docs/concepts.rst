@@ -12,7 +12,7 @@ App
 ====
 
 Every Sandbox that is created has to be associated with a specific App. An
-opendevelop App is a logical entities that many sandboxes can be associated
+opendevelop App is a logical entity that many sandboxes can be associated
 with. Every App has an id and a secret key used for Oauth authentication in
 every API call.
 
