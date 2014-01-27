@@ -14,7 +14,7 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
-AUTH_USER_MODEL = 'common.OpenDevelopUser'
+AUTH_USER_MODEL = 'opendevelop_users.OpenDevelopUser'
 
 MANAGERS = ADMINS
 
