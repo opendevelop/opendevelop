@@ -34,5 +34,6 @@ Contents
 
     concepts
     api
+    cli
     clients
     install
