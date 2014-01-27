@@ -32,12 +32,12 @@ command line, from within the manage.py directory, in two different Bash session
 
 .. code-block:: bash
 
-    ./manage.py runserver 127.0.0.0:8000
+    ./manage.py runserver
 
 
 .. code-block:: bash
 
-    celery worker -c 1 --app=tasks.app --autoreload -l DEBUG
+    ./manage.py celeryd
 DockerServer
 ------------
 
