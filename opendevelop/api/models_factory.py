@@ -15,6 +15,7 @@ def prefix_seq(x):
 class OpenDevelopUserFactory(factory.DjangoModelFactory):
     FACTORY_FOR = OpenDevelopUser
     username = factory.Sequence(prefix_seq('username'))
+    email = factory.Sequence(prefix_seq('email'))
 
 
 class AppFactory(factory.DjangoModelFactory):

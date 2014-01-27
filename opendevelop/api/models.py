@@ -20,7 +20,6 @@ def _random_client_secret():
 
 
 class OpenDevelopUser(AbstractUser):
-    AbstractUser._meta.get_field('email')._unique = True
     is_organization = models.BooleanField()
 
 
