@@ -25,6 +25,9 @@ Opendevelop is based on the following technologies
 * `Docker <https://www.docker.io/>`_
 * `Celery <http://www.celeryproject.org/>`_
 
+**Caution:** Right now OpenDevelop is in Alpha stage and under heavy development. The documentation might not be complete and we 
+do not suggest using it for a production system at the moment.
+
 Contents
 ========
 
