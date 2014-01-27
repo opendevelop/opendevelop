@@ -22,4 +22,4 @@ class DockerServer(models.Model):
 
 
 class OpenDevelopUser(AbstractUser):
-    is_organization = models.BooleanField()
+    is_organization = models.BooleanField(default=False)
