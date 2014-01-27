@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.template.defaultfilters import slugify
 
 class Image(models.Model):
     """
@@ -14,3 +17,7 @@ class Image(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    @receiver(pre_save, sender='Image')
+    def my_callback(sender, instance, *args, **kwargs):
+            instance.slug = slugify(instance.name)

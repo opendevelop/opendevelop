@@ -13,7 +13,6 @@ from subprocess import PIPE
 from sys import exit
 from sys import stderr
 
-
 def die(error, exit_code=1):
     """
     Writes error to `stderr` pipe and exits with the
@@ -74,7 +73,7 @@ print '  Okay.'
 print 'Bootstrapping database'
 
 print '  - Running ./manage.py syncdb...'
-opendevelop_call(['./manage.py', 'syncdb'], cwd='opendevelop')
+opendevelop_call(['./manage.py', 'syncdb', '--noinput'], cwd='opendevelop')
 
 print '  - Running ./manage.py migrate...'
 opendevelop_call(['./manage.py', 'migrate'], cwd='opendevelop')

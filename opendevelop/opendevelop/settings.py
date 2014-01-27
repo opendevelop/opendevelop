@@ -1,6 +1,9 @@
 # Django settings for opendevelop project.
 
 import os
+import djcelery
+
+djcelery.setup_loader()
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -11,7 +14,7 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
-AUTH_USER_MODEL = 'common.OpenDevelopUser'
+AUTH_USER_MODEL = 'api.OpenDevelopUser'
 
 MANAGERS = ADMINS
 
@@ -141,6 +144,7 @@ INSTALLED_APPS = (
     'api',
     'images',
     'sandboxes',
+    'djcelery',
 )
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
