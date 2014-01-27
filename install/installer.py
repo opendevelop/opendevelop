@@ -74,7 +74,7 @@ print '  Okay.'
 print 'Bootstrapping database'
 
 print '  - Running ./manage.py syncdb...'
-opendevelop_call(['./manage.py', 'syncdb'], cwd='opendevelop')
+opendevelop_call(['./manage.py', 'syncdb', '--no-input'], cwd='opendevelop')
 
 print '  - Running ./manage.py migrate...'
 opendevelop_call(['./manage.py', 'migrate'], cwd='opendevelop')
