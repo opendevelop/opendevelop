@@ -19,7 +19,7 @@ class Command(BaseCommand):
         make_option(
             '--buckets',
             dest='buckets',
-            help="Specify directory to place the created bucketsi. Default is "
+            help="Specify directory to place the created buckets. Default is "
                   "/etc/opendevelop/buckets"),
     )
 
