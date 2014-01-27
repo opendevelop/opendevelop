@@ -7,3 +7,4 @@ docker-py==0.2.
 celery==3.1.
 requests==1.2.
 Sphinx==1.2
+django-celery==3.1.1
