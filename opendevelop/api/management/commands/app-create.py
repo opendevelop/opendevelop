@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 from django.db.models import Q
-from opendevelop_users import models
+from api import models
 import re
 
 
