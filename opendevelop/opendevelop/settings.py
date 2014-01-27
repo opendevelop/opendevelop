@@ -14,7 +14,7 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
-AUTH_USER_MODEL = 'opendevelop_users.OpenDevelopUser'
+AUTH_USER_MODEL = 'api.OpenDevelopUser'
 
 MANAGERS = ADMINS
 
@@ -143,9 +143,7 @@ INSTALLED_APPS = (
     'api',
     'images',
     'sandboxes',
-    'opendevelop_users',
-    'djcelery'
-
+    'djcelery',
 )
 
 # A sample logging configuration. The only tangible logging

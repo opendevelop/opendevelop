@@ -2,7 +2,7 @@ import factory
 
 import models
 
-from opendevelop_users import models_factory as app_mf
+from api import models_factory as app_mf
 from images import models_factory as image_mf
 
 
