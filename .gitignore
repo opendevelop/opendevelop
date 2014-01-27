@@ -3,3 +3,4 @@
 *.swo
 docs/_build
 opendevelop/opendevelop/__init__.pyc
+nosetests.xml
