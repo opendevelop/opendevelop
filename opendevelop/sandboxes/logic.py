@@ -12,7 +12,7 @@ def create(app, cmd, image, files):
                                      docker_server=docker_server,
                                      status='running')
     r = tasks.run_code.delay(sandbox, cmd, files)
-    return sandbox
+    return sandbox.slug
 
 
 def fetch_logs(sandbox):

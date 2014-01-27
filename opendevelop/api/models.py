@@ -1,6 +1,8 @@
-from django.db import models
 import random
 
+from django.db import models
+
+from common.models import OpenDevelopUser
 
 def _random(digits):
     alphabet = '0123456789abcdef'
@@ -22,7 +24,7 @@ class App(models.Model):
                                      default=_random_client_secret)
     name = models.CharField(max_length=32)
     slug = models.SlugField(max_length=32)
-    owner = models.ForeignKey('common.OpenDevelopUser')
+    owner = models.ForeignKey(OpenDevelopUser)
     time = models.DateTimeField(auto_now=True)
     homepage = models.URLField(blank=True)
     description = models.TextField(blank=True)
