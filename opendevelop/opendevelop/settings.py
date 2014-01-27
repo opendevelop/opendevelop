@@ -14,6 +14,8 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+AUTH_USER_MODEL = 'common.OpenDevelopUser'
+
 MANAGERS = ADMINS
 
 APP_DIR = '/etc/opendevelop'

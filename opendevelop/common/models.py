@@ -18,3 +18,6 @@ class DockerServer(models.Model):
         if (not self._api):
             self._api = docker.Client(self.url)
         return self._api
+
+class OpenDevelopUser(AbstractUser):
+    is_organization = models.BooleanField(default=False)
