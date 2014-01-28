@@ -7,7 +7,7 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 from django.utils import simplejson as json
-import models_factory as mf
+from api import models_factory as mf
 from sandboxes import models_factory as smf
 from images import models_factory as imf
 import base64
@@ -51,9 +51,11 @@ class SandBoxApiTest(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_get_sandbox(self):
-        sbx = smf.SandboxFactory(owner_app=self.app)
-        response = self.client.get("/api/sandbox/"+str(sbx.id), **self.headers)
-        self.assertEqual(response.status_code, 200)
+        with patch("sandboxes.logic.fetch_logs") as f:
+            sbx = smf.SandboxFactory(owner_app=self.app)
+            response = self.client.get("/api/sandbox/%s" % sbx.slug,
+                                       **self.headers)
+            self.assertEqual(response.status_code, 200)
 
     def test_create_sandbox_invalid_json(self):
         response = self.client.post("/api/sandbox/", **self.headers)
@@ -66,19 +68,19 @@ class SandBoxApiTest(TestCase):
         self.assertEqual(response.status_code, 400)
 
     def test_create_sandbox_cmd_missing(self):
-        req = {"image_id": "foo"}
+        req = {"image": "foo"}
         response = self.client.post("/api/sandbox/", req, **self.headers)
         self.assertEqual(response.status_code, 400)
 
     def test_create_sandbox_wrong_image(self):
-        req = {"image_id": "foo", "cmd": "bar"}
+        req = {"image": "foo", "cmd": "bar"}
         response = self.client.post("/api/sandbox/", req, **self.headers)
         self.assertEqual(response.status_code, 400)
 
     def test_create_sandbox(self):
         with patch("sandboxes.logic.create") as f:
-            f.return_value = 100
+            f.return_value = "slug"
             image = imf.ImageFactory()
-            req = {"image_id": image.id, "cmd": "bar"}
-            response = self.client.post("/api/sandbox/", req,  **self.headers)
+            req = {"image": image.slug, "cmd": "bar"}
+            response = self.client.post("/api/sandbox/", req, **self.headers)
             self.assertEqual(response.status_code, 200)

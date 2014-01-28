@@ -1,6 +1,9 @@
 # Django settings for opendevelop project.
 
 import os
+import djcelery
+
+djcelery.setup_loader()
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -10,6 +13,8 @@ APPEND_SLASH = False
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
+
+AUTH_USER_MODEL = 'api.OpenDevelopUser'
 
 MANAGERS = ADMINS
 
@@ -133,12 +138,18 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'django_nose',
     'south',
     'common',
     'api',
     'images',
     'sandboxes',
+    'djcelery',
 )
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = ['--with-xunit']
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

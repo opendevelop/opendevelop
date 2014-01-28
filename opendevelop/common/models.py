@@ -1,4 +1,3 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
 import docker
 
@@ -17,9 +16,5 @@ class DockerServer(models.Model):
     @property
     def api(self):
         if (not self._api):
-            self._api = docker.Client(self.url, '1.5')
+            self._api = docker.Client(self.url)
         return self._api
-
-
-class OpenDevelopUser(AbstractUser):
-    is_organization = models.BooleanField()

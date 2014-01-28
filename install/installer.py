@@ -13,7 +13,6 @@ from subprocess import PIPE
 from sys import exit
 from sys import stderr
 
-
 def die(error, exit_code=1):
     """
     Writes error to `stderr` pipe and exits with the
@@ -22,6 +21,10 @@ def die(error, exit_code=1):
     error += '\n'
     stderr.write(error)
     exit(exit_code)
+
+def opendevelop_call(args, **kwargs):
+    args = ['sudo', '-u', 'opendevelop'] + args
+    return call(args, **kwargs) 
 
 # Check if script is run by root user
 USER = getuser()
@@ -65,6 +68,22 @@ print 'Setting proper ownership and permissions for the directory...'
 call(['chown', APP_OWNER, APP_DIR], stdout=PIPE, stderr=PIPE)
 call(['chmod', '775', APP_DIR], stdout=PIPE, stderr=PIPE)
 print '  Okay.'
+
+# Bootstrap the database
+print 'Bootstrapping database'
+
+print '  - Running ./manage.py syncdb...'
+opendevelop_call(['./manage.py', 'syncdb', '--noinput'], cwd='opendevelop')
+
+print '  - Running ./manage.py migrate...'
+opendevelop_call(['./manage.py', 'migrate'], cwd='opendevelop')
+
+print '  - Settings group rights for database'
+opendevelop_call(['chmod', 'g+rwx', '/etc/opendevelop/db'])
+
+print 'In order to access OpenDevelop, you need a Django admin user.'
+print 'Let\'s create one now:'
+opendevelop_call(['./manage.py', 'createsuperuser'], cwd='opendevelop')
 
 # Exit
 print 'Ready to go.'
