@@ -84,3 +84,16 @@ class SandBoxApiTest(TestCase):
             req = {"image": image.slug, "cmd": "bar"}
             response = self.client.post("/api/sandbox/", req, **self.headers)
             self.assertEqual(response.status_code, 200)
+
+    def test_create_sandbox_timeout_not_number(self):
+        req ={"image": "ubuntu", "cmd": "ls -l", "timeout":"foo"}
+        response = self.client.post("/api/sandbox/", req, **self.headers)
+        self.assertEqual(response.status_code, 400)
+
+    def test_create_sandbox_timeout_negative_number(self):
+        req ={"image": "ubuntu", "cmd": "ls -l", "timeout":"-3"}
+        response = self.client.post("/api/sandbox/", req, **self.headers)
+        self.assertEqual(response.status_code, 400)
+
+
+    
