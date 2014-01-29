@@ -5,13 +5,16 @@ import json
 import tasks
 
 
-def create(app, cmd, image, files):
+def create(app, cmd, image, files, timeout):
     docker_server = DockerServer.objects.order_by('?')[0]
     sandbox = Sandbox.objects.create(owner_app=app, cmd=json.dumps(cmd),
                                      image=image,
                                      docker_server=docker_server,
                                      status='running')
-    r = tasks.run_code.delay(sandbox, cmd, files)
+    if timeout == None:
+        r = tasks.run_code.apply_async((sandbox, cmd, files))
+    else:
+        r = tasks.run_code.apply_async((sandbox, cmd, files), link=tasks.kill_sandb.s(timeout))
     return sandbox.slug
 
 
