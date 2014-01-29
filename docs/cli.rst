@@ -36,7 +36,7 @@ the name of your app and the username of the owner
 
 .. code-block:: bash
 
-    ./manage.py app-create --name=myapp --username=user_that_owns_the_app
+    ./manage.py app-create --app_name=myapp --username=user_that_owns_the_app
 
 
 Add a new image
