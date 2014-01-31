@@ -43,6 +43,15 @@ class SandboxListView(View):
             return HttpResponseBadRequest('Command or image slug missing')
 
         try:
+            timeout=int(data['timeout'])
+        except (KeyError):
+            timeout = None
+        except (ValueError):
+            return HttpResponseBadRequest('Timeout has to be an integer')
+        if ((timeout != None) and (timeout < 0)):
+            return HttpResponseBadRequest('Timeout has to be positive')
+
+        try:
             commands = json.loads(cmd)
         except ValueError:
             commands = [cmd]
@@ -57,7 +66,7 @@ class SandboxListView(View):
         except:
             return HttpResponseBadRequest('No image found')
         files = request.FILES
-        sandbox_slug = logic.create(request.app, commands, image, files)
+        sandbox_slug = logic.create(request.app, commands, image, files, timeout)
         return JSONResponse(sandbox_slug)
 
 
