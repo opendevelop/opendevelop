@@ -113,8 +113,13 @@ Example request
     Params: {
         "image": "my_image",
         "cmd": "[\"python test.py\"]"
+        "timeout": "10"
     }
 
+Timeout is an optional parameter that allows the user to specify the maximum 
+time in seconds that the execution of the sandbox will last before it 
+automatically gets killed.
+ 
 Example response
 
 .. code-block:: json
