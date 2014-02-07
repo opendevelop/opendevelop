@@ -25,18 +25,18 @@ API calls
 
 Sandboxes
 ---------
-+------------+------------------------------+----------------------------------+
-| Verb       | URI                          | Description                      |
-+============+==============================+==================================+
-| **GET**    | ``/api/sandbox``             | List all sandboxes associated    |
-|            |                              | with the given App               |
-+------------+------------------------------+----------------------------------+
-| **GET**    | ``/api/sandbox/sandbox_id``  | Show information about a specific|
-|            |                              | App                              |
-+------------+------------------------------+----------------------------------+
-| **POST**   | ``/api/sandbox``             | Create a new sandbox and run the |
-|            |                              | given code inside                |
-+------------+------------------------------+----------------------------------+
++----------+-------------------------------+-----------------------------------+
+| Verb     | URI                           | Description                       |
++==========+==============================+====================================+
+| **GET**  | ``/api/sandboxes``            | List all sandboxes associated     |
+|          |                               | with the given App                |
++----------+------------------------------+------------------------------------+
+| **GET**  | ``/api/sandboxes/sandbox_id`` | Show information about a specific |
+|          |                               | App                               |
++----------+------------------------------+------------------------------------+
+| **POST** | ``/api/sandboxes``            | Create a new sandbox and run the  |
+|          |                               | given code inside                 |
++----------+------------------------------+------------------------------------+
 
 **List Sandboxes**
 
@@ -44,7 +44,7 @@ Example request
 
 .. code-block:: bash
 
-    Request Url: http://opendevelop/api/sandbox
+    Request Url: http://opendevelop/api/sandboxes
     Request Method: GET
     Params: {}
 
@@ -77,7 +77,7 @@ Example request
 
 .. code-block:: bash
 
-    GET /api/sandbox/1
+    GET /api/sandboxes/1
 
 
 Example response
@@ -98,7 +98,7 @@ Example request
 
 .. code-block:: bash
 
-    Request Url: http://opendevelop/api/sandbox
+    Request Url: http://opendevelop/api/sandboxes
     Request Method: POST
     Files: {
         "0": {
