@@ -26,11 +26,11 @@ class SandBoxApiTest(TestCase):
         self.headers = {"HTTP_AUTHORIZATION": value}
 
     def test_unauthorized(self):
-        response = self.client.get("/api/sandbox")
+        response = self.client.get("/api/sandboxes")
         self.assertEqual(response.status_code, 401)
 
     def test_wrong_header(self):
-        response = self.client.get("/api/sandbox", HTTP_AUTHORIZATION="wrong")
+        response = self.client.get("/api/sandboxes", HTTP_AUTHORIZATION="wrong")
         self.assertEqual(response.status_code, 400)
 
     def test_no_app_found(self):
@@ -39,42 +39,42 @@ class SandBoxApiTest(TestCase):
         hashed = base64.standard_b64encode("%s:%s" % (C_ID, C_SECRET))
         value = "Basic " + hashed
         header = {"HTTP_AUTHORIZATION": value}
-        response = self.client.get("/api/sandbox/", **header)
+        response = self.client.get("/api/sandboxes/", **header)
         self.assertEqual(response.status_code, 400)
 
     def test_get_sandboxes_empty(self):
-        response = self.client.get("/api/sandbox/", **self.headers)
+        response = self.client.get("/api/sandboxes/", **self.headers)
         self.assertEqual(response.content, "{\"sandboxes\": []}")
 
     def test_get_sandbox_not_found(self):
-        response = self.client.get("/api/sandbox/1123", **self.headers)
+        response = self.client.get("/api/sandboxes/1123", **self.headers)
         self.assertEqual(response.status_code, 404)
 
     def test_get_sandbox(self):
         with patch("sandboxes.logic.fetch_logs") as f:
             sbx = smf.SandboxFactory(owner_app=self.app)
-            response = self.client.get("/api/sandbox/%s" % sbx.slug,
+            response = self.client.get("/api/sandboxes/%s" % sbx.slug,
                                        **self.headers)
             self.assertEqual(response.status_code, 200)
 
     def test_create_sandbox_invalid_json(self):
-        response = self.client.post("/api/sandbox/", **self.headers)
+        response = self.client.post("/api/sandboxes/", **self.headers)
         self.assertEqual(response.status_code, 400)
 
     def test_create_sandbox_image_missing(self):
         req = {"cmd": "foo"}
         a = json.dumps(req)
-        response = self.client.post("/api/sandbox/", req, **self.headers)
+        response = self.client.post("/api/sandboxes/", req, **self.headers)
         self.assertEqual(response.status_code, 400)
 
     def test_create_sandbox_cmd_missing(self):
         req = {"image": "foo"}
-        response = self.client.post("/api/sandbox/", req, **self.headers)
+        response = self.client.post("/api/sandboxes/", req, **self.headers)
         self.assertEqual(response.status_code, 400)
 
     def test_create_sandbox_wrong_image(self):
         req = {"image": "foo", "cmd": "bar"}
-        response = self.client.post("/api/sandbox/", req, **self.headers)
+        response = self.client.post("/api/sandboxes/", req, **self.headers)
         self.assertEqual(response.status_code, 400)
 
     def test_create_sandbox(self):
@@ -82,17 +82,17 @@ class SandBoxApiTest(TestCase):
             f.return_value = "slug"
             image = imf.ImageFactory()
             req = {"image": image.slug, "cmd": "bar"}
-            response = self.client.post("/api/sandbox/", req, **self.headers)
+            response = self.client.post("/api/sandboxes/", req, **self.headers)
             self.assertEqual(response.status_code, 200)
 
     def test_create_sandbox_timeout_not_number(self):
         req ={"image": "ubuntu", "cmd": "ls -l", "timeout":"foo"}
-        response = self.client.post("/api/sandbox/", req, **self.headers)
+        response = self.client.post("/api/sandboxes/", req, **self.headers)
         self.assertEqual(response.status_code, 400)
 
     def test_create_sandbox_timeout_negative_number(self):
         req ={"image": "ubuntu", "cmd": "ls -l", "timeout":"-3"}
-        response = self.client.post("/api/sandbox/", req, **self.headers)
+        response = self.client.post("/api/sandboxes/", req, **self.headers)
         self.assertEqual(response.status_code, 400)
 
 
